@@ -20,22 +20,22 @@ export const instagram = {
 };
 
 export const navLinks = [
-  { href: "/artists", label: "Artists" },
-  { href: "/booking", label: "Booking" },
-  { href: "/records", label: "Records" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/artists", label: "Artistas" },
+  { href: "/booking", label: "Contratación" },
+  { href: "/records", label: "Sello" },
+  { href: "/about", label: "Nosotros" },
+  { href: "/contact", label: "Contacto" },
 ];
 
-export const location = "Panama";
+export const location = "Panamá";
 export const foundedYear = "2026";
 
 export const brandStatement =
-  "An independent music company built around artists, direction and culture.";
+  "Una compañía musical independiente dedicada a los artistas, la dirección y la cultura.";
 
 export const story = [
-  "CAOS RECORDS was founded in Panama in 2026 by Rodolfo “Xavi” Martinez and Angel “Agm” Monterrey.",
-  "CAOS began with a simple idea: artists need more than a logo behind their name. They need people willing to build with them — from the first conversation to the stage, the release and whatever comes next.",
-  "We are building CAOS as an independent platform for booking, management, records and selected cultural projects. The goal is not to collect the biggest roster. It is to build the right relationships and give each one a clear direction.",
-  "This is still the beginning. That is not something we are trying to hide. It is the part we are most interested in building well.",
+  "CAOS RECORDS fue fundada en Panamá en 2026 por Rodolfo “Xavi” Martinez y Angel “Agm” Monterrey.",
+  "Todo comenzó con una idea sencilla: los artistas necesitan más que un logo detrás de su nombre. Necesitan personas dispuestas a construir con ellos, desde la primera conversación hasta el escenario, el lanzamiento y lo que venga después.",
+  "Estamos construyendo una plataforma independiente para contratación de actuaciones, representación, lanzamientos y proyectos culturales seleccionados. El objetivo no es reunir la lista de artistas más grande, sino construir las relaciones correctas y darle a cada una una dirección clara.",
+  "Este sigue siendo el comienzo. No es algo que intentemos ocultar; es la parte que más nos interesa construir bien.",
 ];

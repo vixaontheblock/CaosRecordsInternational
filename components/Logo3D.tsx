@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-type Contour = { outer: [number,number][]; holes: [number,number][][] };
 export default function Logo3D(){
  const host=useRef<HTMLDivElement>(null);
  const paused=useRef(false);
@@ -14,28 +13,36 @@ export default function Logo3D(){
   let disposed=false, cleanup=()=>{};
   const controller=new AbortController();
   async function setup(element:HTMLDivElement){
-   const THREE=await import('three');
-   const response=await fetch('/logo-shape.json',{signal:controller.signal});
-   if(!response.ok)throw new Error('Logo unavailable');
-   const outlines:Contour[]=await response.json();if(disposed)return;
+   const [THREE, { GLTFLoader }] = await Promise.all([import('three'), import('three/examples/jsm/loaders/GLTFLoader.js')]);
+   const response=await fetch('/CAOSRECORDS.glb',{signal:controller.signal});
+   if(!response.ok)throw new Error('No se pudo cargar el modelo');
+   const buffer=await response.arrayBuffer();if(disposed)return;
+   const gltf=await new GLTFLoader().parseAsync(buffer,'');
+   const model=gltf.scene;
+   const releaseModel=()=>{
+    const geometries=new Set<import('three').BufferGeometry>();
+    const materials=new Set<import('three').Material>();
+    const textures=new Set<import('three').Texture>();
+    model.traverse(object=>{if(object instanceof THREE.Mesh){geometries.add(object.geometry);for(const material of Array.isArray(object.material)?object.material:[object.material])materials.add(material);}});
+    materials.forEach(material=>{Object.values(material).forEach(value=>{if(value instanceof THREE.Texture)textures.add(value);});material.dispose();});
+    textures.forEach(texture=>texture.dispose());geometries.forEach(geometry=>geometry.dispose());
+   };
+   if(disposed){releaseModel();return;}cleanup=releaseModel;
+   model.updateMatrixWorld(true);
+   const bounds=new THREE.Box3().setFromObject(model);
+   const size=bounds.getSize(new THREE.Vector3());const center=bounds.getCenter(new THREE.Vector3());
+   const scale=5.8/Math.max(size.x,size.y,size.z);
+   const centered=new THREE.Group();centered.add(model);model.position.sub(center);centered.scale.setScalar(scale);
    const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});
    renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setClearColor(0x080808,0);
-   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;
-   renderer.domElement.setAttribute('aria-hidden','true');element.appendChild(renderer.domElement);
+   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
+   renderer.domElement.setAttribute('aria-hidden','true');renderer.domElement.dataset.model='/CAOSRECORDS.glb';element.appendChild(renderer.domElement);
    const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(38,1,.1,50);camera.position.z=9.8;
-   const group=new THREE.Group();scene.add(group);
-   const front=new THREE.MeshStandardMaterial({color:0xffffff,metalness:.25,roughness:.32});
-   const side=new THREE.MeshStandardMaterial({color:0x999999,metalness:.65,roughness:.27});
-   const geometry=new THREE.ExtrudeGeometry(outlines.map(o=>{
-    const shape=new THREE.Shape(o.outer.map(([x,y])=>new THREE.Vector2(x,y)));
-    for(const hole of o.holes)shape.holes.push(new THREE.Path(hole.map(([x,y])=>new THREE.Vector2(x,y))));
-    return shape;
-   }),{depth:.24,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.009,bevelThickness:.012,curveSegments:2});
-   geometry.translate(0,0,-.12);const mesh=new THREE.Mesh(geometry,[front,side]);group.add(mesh);
-   scene.add(new THREE.AmbientLight(0xffffff,1.7));
-   const key=new THREE.DirectionalLight(0xffffff,4);key.position.set(-3,4,6);scene.add(key);
-   const rim=new THREE.DirectionalLight(0xffffff,3);rim.position.set(4,0,-2);scene.add(rim);
-   const fill=new THREE.DirectionalLight(0xffffff,1.2);fill.position.set(2,-3,4);scene.add(fill);
+   const group=new THREE.Group();group.add(centered);scene.add(group);
+   scene.add(new THREE.AmbientLight(0xffffff,.45));
+   const key=new THREE.DirectionalLight(0xffffff,2.4);key.position.set(-3,4,6);scene.add(key);
+   const rim=new THREE.DirectionalLight(0xffffff,1.5);rim.position.set(4,0,-2);scene.add(rim);
+   const fill=new THREE.DirectionalLight(0xffffff,.45);fill.position.set(2,-3,4);scene.add(fill);
    const media=matchMedia('(prefers-reduced-motion: reduce)');let reduced=media.matches;
    let targetX=.08,targetY=-.24,dragging=false,lastX=0,lastY=0,visible=true,frame=0,last=0,time=0;
    const resize=()=>{const {width,height}=element.getBoundingClientRect();renderer.setSize(width,height);camera.aspect=width/height;camera.position.z=camera.aspect<1?10.4/camera.aspect:9.8;camera.updateProjectionMatrix();renderer.render(scene,camera);};
@@ -57,7 +64,7 @@ export default function Logo3D(){
    wake.current=()=>draw();
    const visibility=()=>{if(!document.hidden)draw();};document.addEventListener('visibilitychange',visibility);
    group.rotation.set(.08,-.24,0);resize();draw();setReady(true);
-   cleanup=()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();media.removeEventListener('change',preference);document.removeEventListener('visibilitychange',visibility);element.removeEventListener('pointerdown',down);element.removeEventListener('pointermove',move);element.removeEventListener('pointerup',up);element.removeEventListener('pointercancel',up);element.removeEventListener('pointerleave',leave);element.removeEventListener('webglcontextlost',contextLost,true);geometry.dispose();front.dispose();side.dispose();renderer.dispose();renderer.domElement.remove();};
+   cleanup=()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();media.removeEventListener('change',preference);document.removeEventListener('visibilitychange',visibility);element.removeEventListener('pointerdown',down);element.removeEventListener('pointermove',move);element.removeEventListener('pointerup',up);element.removeEventListener('pointercancel',up);element.removeEventListener('pointerleave',leave);element.removeEventListener('webglcontextlost',contextLost,true);releaseModel();renderer.dispose();renderer.domElement.remove();};
   }
   setup(element).catch(()=>{if(!disposed)setReady(false);});
   return()=>{disposed=true;controller.abort();cleanup();};

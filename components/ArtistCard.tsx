@@ -7,7 +7,7 @@ export default function ArtistCard({ artist, index }: { artist: Artist; index: n
     <Link href={`/artists/${artist.slug}`} className="group bg-[#11110f] p-6 sm:p-8">
       <div className="flex justify-between text-xs text-smoke mb-6">
         <span>{String(index + 1).padStart(2, "0")}</span>
-        {artist.availableForBooking && <span>Booking open</span>}
+        {artist.availableForBooking && <span>Disponible para actuaciones</span>}
       </div>
       <div className="relative aspect-[4/5] overflow-hidden bg-white/5">
         {artist.image ? <Image src={artist.image} alt={artist.name} fill className="object-cover group-hover:scale-[1.02] transition-transform duration-500" /> : null}

@@ -6,7 +6,7 @@
  * Not implemented yet, on purpose (see brief §18).
  *
  * This is the reserved slot for a future full-screen entry sequence:
- * black screen → logo appears → logo transforms/scales → wordmark reveal →
+ * black screen  logo appears  logo transforms/scales  wordmark reveal 
  * transition into the homepage. It currently renders nothing so it is safe
  * to mount from RootLayout or a route without affecting the site today.
  *

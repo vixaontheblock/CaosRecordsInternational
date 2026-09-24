@@ -29,7 +29,7 @@ export default function ArtistShowcase({ limit, title = "Artists" }: { limit?: n
             </p>
             <div className="md:pb-2">
               <p className="text-paper/58 leading-relaxed max-w-md">We already have artist relationships in development. We are choosing not to publish placeholder names, fake profiles or unfinished material.</p>
-              <Link href="/contact" className="inline-block mt-7 text-xs uppercase tracking-[.16em] border-b border-paper/60 pb-1 hover:border-paper">Artist / management inquiries ↗</Link>
+              <Link href="/contact" className="inline-block mt-7 text-xs uppercase tracking-[.16em] border-b border-paper/60 pb-1 hover:border-paper">Artist / management inquiries </Link>
             </div>
           </div>
         )}

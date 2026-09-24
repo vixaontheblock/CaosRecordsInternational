@@ -17,7 +17,7 @@ export default function FounderSection() {
           {founders.map((f, i) => (
             <a key={f.alias} href={f.instagram} target="_blank" rel="noopener noreferrer" className="group bg-ink p-7 sm:p-10 min-h-[340px] flex flex-col justify-between">
               <div className="flex justify-between text-xs uppercase tracking-[.16em] text-smoke">
-                <span>Founder 0{i + 1}</span><span>Instagram ↗</span>
+                <span>Founder 0{i + 1}</span><span>Instagram </span>
               </div>
               <div>
                 <p className="font-display uppercase text-[clamp(4rem,8vw,8rem)] leading-[.8] tracking-[-.035em] group-hover:translate-x-1 transition-transform">{f.alias}</p>

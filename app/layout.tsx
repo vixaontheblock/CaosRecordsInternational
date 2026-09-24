@@ -9,14 +9,14 @@ const display = Big_Shoulders_Display({ subsets: ["latin"], weight: ["600", "700
 const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body", display: "swap" });
 
 const siteUrl = "https://caosrecords.com";
-const title = "CAOS RECORDS — Independent Music Company";
-const description = "Compañía musical independiente desde Panamá. Artistas, booking, management, records y cultura en una misma frecuencia.";
+const title = "CAOS RECORDS — Compañía musical independiente";
+const description = "Compañía musical independiente desde Panamá. Artistas, contratación, representación, sello y cultura.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: title, template: "%s — CAOS RECORDS" },
   description,
-  keywords: ["CAOS RECORDS", "Panama music", "artist booking", "artist management", "independent records", "Latin music company"],
+  keywords: ["CAOS RECORDS", "Música en Panamá", "contratación de artistas", "representación artística", "sello independiente", "compañía musical"],
   openGraph: { title, description, url: siteUrl, siteName: "CAOS RECORDS", images: [{ url: "/logo-black.png", width: 1080, height: 1080, alt: "CAOS RECORDS" }], locale: "es_PA", type: "website" },
   twitter: { card: "summary_large_image", title, description, images: ["/logo-black.png"] },
   icons: { icon: "/logo-black.png" },
