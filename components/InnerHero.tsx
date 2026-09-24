@@ -1,0 +1,1 @@
+export default function InnerHero({label,title,accent,copy}:{label:string;title:string;accent:string;copy:string}){return <section className="inner-hero"><p className="eyebrow">{label}</p><h1 className="inner-title">{title}{accent && <><br/><span>{accent}</span></>}</h1><p className="inner-intro">{copy}</p></section>}

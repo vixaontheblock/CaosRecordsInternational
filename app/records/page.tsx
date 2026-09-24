@@ -1,0 +1,5 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import InnerHero from "@/components/InnerHero";
+export const metadata:Metadata={title:"Records",description:"El sello independiente de CAOS. Música, identidad y dirección creativa desde Panamá."};
+export default function RecordsPage(){return <><InnerHero label="RECORDS" title="RECORDS" accent="" copy="El sello reúne nuestros lanzamientos y colaboraciones musicales. El primer catálogo está en desarrollo."/><section className="section-shell inner-split"><div className="chapter-art" aria-hidden="true"><div className="vinyl"><div className="vinyl-label"><img src="/logo-white.png" width="170" height="170" alt=""/></div></div></div><div><p className="eyebrow">EN DESARROLLO</p><h2>Primeros<br/>lanzamientos.</h2><p className="editorial-copy">Nuestros primeros proyectos están en desarrollo. Los lanzamientos se anunciarán cuando la música, el arte y la visión estén listos para salir al mundo.</p><Link className="button acid mt-8" href="/contact">COMPARTE TU PROYECTO ↗</Link></div></section></>}
