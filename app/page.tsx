@@ -1,3 +1,5 @@
+import {pageMetadata,siteDescription} from "@/lib/seo";
+export const metadata=pageMetadata("CAOS Records",siteDescription,"/");
 import Link from "next/link";
 import Logo3D from "@/components/Logo3D";
 import RecordSleeve from "@/components/RecordSleeve";

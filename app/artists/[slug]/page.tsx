@@ -1,10 +1,11 @@
+import {pageMetadata} from "@/lib/seo";
 import type {Metadata} from "next";
 import Link from "next/link";
 import {notFound} from "next/navigation";
 import {artists} from "@/data/artists";
 import ArtistMusic from "@/components/ArtistMusic";
 export function generateStaticParams(){return artists.map(a=>({slug:a.slug}));}
-export function generateMetadata({params}:{params:{slug:string}}):Metadata{const artist=artists.find(a=>a.slug===params.slug);return artist?{title:artist.name,description:artist.bio}:{};}
+export function generateMetadata({params}:{params:{slug:string}}):Metadata{const artist=artists.find(a=>a.slug===params.slug);return artist?pageMetadata(artist.name,`Conoce a ${artist.name}, artista de CAOS Records. Escucha sus canciones, descubre sus colaboraciones y consulta propuestas de actuaciones.`, `/artists/${artist.slug}`):{};}
 const labels:Record<string,string>={spotify:'Spotify',appleMusic:'Apple Music',youtube:'YouTube',instagram:'Instagram'};
 export default function ArtistPage({params}:{params:{slug:string}}){const artist=artists.find(a=>a.slug===params.slug);if(!artist)notFound();const links=Object.entries(artist.links??{}).filter(([,value])=>Boolean(value));return <>
  <section className="artist-profile-hero"><Link href="/artists" className="text-link">ARTISTAS</Link><div className="artist-profile-title"><h1>{artist.name}</h1><span className="profile-disc" aria-hidden="true"><span>42</span></span></div><p>{artist.genre} · Artista de CAOS Records.</p></section>

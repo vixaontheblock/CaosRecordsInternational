@@ -42,3 +42,6 @@ La portada contiene información de contratación, representación, sello y cont
 El pie incluye el crédito solicitado: `develop by RuptaStudios`, enlazado a https://ruptastudios.com. Es la única frase en inglés de la interfaz; los nombres de marca se conservan.
 
 La portada usa superficies curvas y composiciones superpuestas. `RecordStack.tsx` contiene una pila de cinco discos que responde al desplazamiento y permite separarlos al pulsar. `ArtistMusic.tsx` permite seleccionar temas y abrirlos en el canal oficial. `/booking?artist=forty2` preselecciona al artista sin enviar el formulario.
+
+## Dominio y vista al compartir
+Configura `NEXT_PUBLIC_SITE_URL` con el dominio público definitivo antes de compilar. Se usa en canonical, Open Graph, sitemap y datos estructurados. `/opengraph-image` genera una imagen PNG con el logo sobre fondo negro. La previsualización de WhatsApp y otras redes requiere una URL pública accesible; localhost no puede ser leído por sus rastreadores. Cada plataforma controla su caché y presentación.

@@ -39,3 +39,5 @@ export const story = [
   "Estamos construyendo una plataforma independiente para contratación de actuaciones, representación, lanzamientos y proyectos culturales seleccionados. El objetivo no es reunir la lista de artistas más grande, sino construir las relaciones correctas y darle a cada una una dirección clara.",
   "Este sigue siendo el comienzo. No es algo que intentemos ocultar; es la parte que más nos interesa construir bien.",
 ];
+
+export const phone = {display: "+507 6799-7259", call: "tel:+50767997259", whatsapp: "https://wa.me/50767997259"};
