@@ -6,6 +6,8 @@ export type Artist = {
   bio?: string;
   availableForBooking?: boolean;
   image?: string;
+  monogram?: string;
+  imagePosition?: string;
   releases?: { title: string; credit: string; videoId: string; duration: string; artwork?: string }[];
   links?: {
     spotify?: string;
@@ -20,6 +22,8 @@ export type Artist = {
 export const artists: Artist[] = [{
   slug: "forty2",
   name: "Forty2",
+  monogram: "42",
+  // Añadir image: "/artists/forty2.jpg" cuando se reciba la foto aprobada.
   genre: "Trap · Reguetón · Funk",
   bio: "Forty2, también conocido como Isforty2, presenta su proyecto con la expresión «de Cali a Panamá». Su canal reúne canciones con referencias al trap, al reguetón y al funk, además de colaboraciones con AGM, FLASH_HYRO y DQ. Entre sus publicaciones están Sin respeto, ¿Paso por ti?, Una mala y Gritos. Forma parte de CAOS Records.",
   links: { youtube: "https://www.youtube.com/@ISFORTY2", instagram: "https://www.instagram.com/isforty2/" },
@@ -33,4 +37,14 @@ export const artists: Artist[] = [{
     { title: "Te conviene", credit: "Isforty2", videoId: "ioq975suprA", duration: "3:02" },
     { title: "El cllo", credit: "Isforty2 · Producción de FRANCO", videoId: "8yT0gsr9Nqs", duration: "2:19" },
   ],
+}, {
+  slug: "ax-tokyo",
+  name: "A.X TOKYO",
+  monogram: "A.X",
+  bio: "A.X TOKYO forma parte de CAOS Records. Escucha su música en Spotify y YouTube y sigue sus novedades en Instagram. Para actuaciones o colaboraciones, contacta con nuestro equipo.",
+  links: {
+    youtube: "https://www.youtube.com/@a.xtokyo",
+    spotify: "https://open.spotify.com/artist/1gU1qfRsyAqrretJtddYUZ",
+    instagram: "https://www.instagram.com/2005tokyo/",
+  },
 }];
