@@ -1,0 +1,26 @@
+"use client";
+import {useEffect,useRef,useState} from "react";
+function useObjectMotion(){
+ const ref=useRef<HTMLButtonElement>(null);const [visible,setVisible]=useState(false);
+ useEffect(()=>{const el=ref.current;if(!el)return;const observer=new IntersectionObserver(([entry])=>setVisible(entry.isIntersecting),{threshold:.1});observer.observe(el);const media=matchMedia('(prefers-reduced-motion: reduce)');let frame=0;
+ const update=()=>{frame=0;if(media.matches)return;const r=el.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;el.style.setProperty('--object-tilt',`${Math.max(-1,Math.min(1,(innerHeight/2-r.top-r.height/2)/innerHeight))*12}deg`);};
+ const scroll=()=>{if(!frame)frame=requestAnimationFrame(update);};addEventListener('scroll',scroll,{passive:true});update();return()=>{observer.disconnect();removeEventListener('scroll',scroll);cancelAnimationFrame(frame);};},[]);return {ref,visible};
+}
+export function Cassette(){const [unwound,setUnwound]=useState(false);const {ref,visible}=useObjectMotion();return <button ref={ref} type="button" className={`music-object cassette-object ${visible?'object-visible':''} ${unwound?'tape-loose':''}`} aria-label={unwound?'Recoger la cinta del casete':'Desenrollar la cinta del casete'} aria-pressed={unwound} onClick={()=>setUnwound(!unwound)}>
+<svg viewBox="0 0 640 490" aria-hidden="true"><defs><linearGradient id="cassette-metal" x2="1" y2="1"><stop stopColor="#656565"/><stop offset=".35" stopColor="#161616"/><stop offset="1" stopColor="#393939"/></linearGradient></defs>
+<g className="cassette-body"><path d="M75 87L547 87Q572 87 572 114L572 334Q572 356 548 356L76 356Q52 356 52 333L52 114Q52 87 75 87Z" fill="#080808" stroke="#555" strokeWidth="2" transform="translate(0 9)"/>
+<rect x="52" y="87" width="520" height="265" rx="22" fill="url(#cassette-metal)" stroke="#888" strokeWidth="1.5"/>
+<path d="M76 113H548V267H76Z" fill="#e6e6e6"/><path d="M76 150H548M76 159H548" stroke="#333" strokeWidth="2"/>
+<text x="95" y="141" fontSize="13" fill="#222" letterSpacing="3">IDEAS EN CINTA</text><text x="526" y="141" fontSize="15" fill="#222">A</text>
+<rect x="110" y="178" width="404" height="73" rx="36" fill="#151515" stroke="#777" strokeWidth="3"/>
+<rect x="269" y="190" width="88" height="47" rx="5" fill="#777"/><path d="M273 215H353" stroke="#151515" strokeWidth="30"/>
+{[171,453].map(x=><g key={x} className="cassette-reel" style={{transformOrigin:`${x}px 215px`}}><circle cx={x} cy="215" r="31" fill="#ddd" stroke="#999" strokeWidth="5"/><circle cx={x} cy="215" r="13" fill="#080808"/>{[0,60,120,180,240,300].map(angle=><path key={angle} d={`M${x-4} 186h8v15h-8z`} fill="#333" transform={`rotate(${angle} ${x} 215)`}/>)}</g>)}
+<path d="M171 348L193 289H432L454 348Z" fill="#222" stroke="#666"/><circle cx="209" cy="324" r="10" fill="#080808" stroke="#777"/><circle cx="418" cy="324" r="10" fill="#080808" stroke="#777"/><image href="/logo-white.png" x="276" y="279" width="74" height="74"/>
+{[[67,103],[557,103],[67,335],[557,335]].map(([x,y])=><g key={`${x}-${y}`}><circle cx={x} cy={y} r="4" fill="#999"/><path d={`M${x-2} ${y-2}l4 4`} stroke="#111"/></g>)}
+</g><path className="loose-tape" d="M208 344C195 400 79 367 61 417C42 472 195 470 266 416C336 362 448 383 481 419C520 463 603 426 581 385C566 357 482 382 419 344" fill="none" stroke="#aaa" strokeWidth="5"/><path className="tape-glint" d="M208 344C195 400 79 367 61 417C42 472 195 470 266 416C336 362 448 383 481 419C520 463 603 426 581 385C566 357 482 382 419 344" fill="none" stroke="#333" strokeWidth="2"/></svg></button>;}
+export function Turntable(){const [playing,setPlaying]=useState(false);const {ref,visible}=useObjectMotion();return <button ref={ref} type="button" className={`music-object turntable-object ${visible?'object-visible':''} ${playing?'needle-down':''}`} aria-label={playing?'Levantar el brazo y detener el giro del tocadiscos':'Bajar el brazo y girar el tocadiscos'} aria-pressed={playing} onClick={()=>setPlaying(!playing)}><svg viewBox="0 0 600 510" aria-hidden="true"><defs><radialGradient id="platter-shine"><stop stopColor="#333"/><stop offset=".5" stopColor="#080808"/><stop offset=".85" stopColor="#292929"/><stop offset="1" stopColor="#080808"/></radialGradient></defs>
+<ellipse cx="284" cy="433" rx="210" ry="30" fill="#000" opacity=".6"/><circle cx="264" cy="257" r="208" fill="#222" stroke="#888" strokeWidth="2"/><circle cx="264" cy="251" r="198" fill="url(#platter-shine)"/>
+{Array.from({length:23},(_,i)=><circle key={i} cx="264" cy="251" r={78+i*5} fill="none" stroke="#444" strokeWidth=".8"/>)}
+<g className="turntable-label"><circle cx="264" cy="251" r="66" fill="#eee"/><image href="/logo-black.png" x="211" y="198" width="106" height="106"/></g><circle cx="264" cy="251" r="5" fill="#888"/>
+<g className="tonearm"><circle cx="492" cy="85" r="29" fill="#292929" stroke="#888" strokeWidth="3"/><path d="M492 56V112" stroke="#aaa" strokeWidth="14"/><path d="M492 85L481 313L450 356" fill="none" stroke="#080808" strokeWidth="16"/><path d="M492 85L481 313L450 356" fill="none" stroke="#aaa" strokeWidth="9"/><path d="M490 86L479 313L448 355" fill="none" stroke="#eee" strokeWidth="2"/><path d="M437 346L460 357L444 390L421 380Z" fill="#ddd" stroke="#777" strokeWidth="2"/><path d="M421 380L444 390" stroke="#555" strokeWidth="7"/></g>
+</svg></button>;}
