@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { artists } from "@/data/artists";
 import { officialEmail } from "@/lib/site";
 
@@ -8,6 +8,8 @@ const fieldClass = "w-full bg-transparent border-b border-black/25 py-3 text-ink
 const labelClass = "block text-[11px] uppercase tracking-[.14em] text-ink/48 mb-1";
 
 export default function BookingForm() {
+  const [selectedArtist,setSelectedArtist]=useState("General / artista por confirmar");
+  useEffect(()=>{const slug=new URLSearchParams(window.location.search).get("artist");const artist=artists.find(a=>a.slug===slug);if(artist)setSelectedArtist(artist.name);},[]);
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -35,7 +37,7 @@ export default function BookingForm() {
         <legend className="sr-only">Detalles del evento</legend>
         <div>
           <label className={labelClass} htmlFor="artist">Artista</label>
-          <select className={fieldClass} id="artist" name="Artista" defaultValue="General / artista por confirmar">
+          <select className={fieldClass} id="artist" name="Artista" value={selectedArtist} onChange={e=>setSelectedArtist(e.target.value)}>
             {artists.map((a) => <option key={a.slug} value={a.name}>{a.name}</option>)}
             <option value="General / artista por confirmar">General / artista por confirmar</option>
           </select>

@@ -21,7 +21,7 @@ Abre http://localhost:3000. Para producción: `npm run build` y `npm start`.
 - `public/CAOSRECORDS.glb`: modelo proporcionado por el usuario, conservado sin modificaciones.
 - `components/RecordSleeve.tsx`: funda y vinilo interactivos con ratón, teclado y pantalla táctil.
 - `components/Experience.tsx`: aparición de secciones al hacer scroll.
-- `data/artists.ts`: artistas. Está vacío hasta incorporar artistas reales; los perfiles se generan desde aquí.
+- `data/artists.ts`: artistas. Incluye a Forty2, sus enlaces oficiales y ocho publicaciones verificadas en su canal de YouTube.
 - `lib/site.ts`: correo, Instagram y fundadores.
 - `public/logo-white.png` y `public/logo-black.png`: logos originales.
 
@@ -35,8 +35,10 @@ Configura el dominio real en `app/layout.tsx`, `app/robots.ts` y `app/sitemap.ts
 
 ## Logo 3D
 
-El visor carga el archivo `CAOSRECORDS.glb` del usuario, conservando su geometría y sus materiales. Se centra y escala para encajarlo en la portada. Three.js se carga de forma diferida; si WebGL no está disponible se muestra el logo original. El dibujo se detiene fuera de pantalla y con la pestaña oculta. La preferencia de movimiento reducido muestra una vista estática. Los controles permiten arrastrar, pausar y restablecer el ángulo.
+El visor carga el archivo `CAOSRECORDS.glb` del usuario, conservando su geometría y sus materiales. Se centra y escala para encajarlo en la portada. Three.js se carga de forma diferida; si WebGL no está disponible se muestra el logo original. El dibujo se detiene fuera de pantalla y con la pestaña oculta. La preferencia de movimiento reducido muestra una vista estática. El logo se anima sin instrucciones ni controles visibles y respeta la preferencia de movimiento reducido.
 
-La portada contiene información de contratación, representación, sello y contacto. La historia, el origen y los fundadores permanecen en `/about`. No se muestran artistas ni lanzamientos ficticios.
+La portada contiene información de contratación, representación, sello y contacto. La historia, el origen y los fundadores permanecen en `/about`. No se muestran artistas ni lanzamientos ficticios. Consulta `data/forty2-sources.md` para fuentes y límites de la investigación.
 
 El pie incluye el crédito solicitado: `develop by RuptaStudios`, enlazado a https://ruptastudios.com. Es la única frase en inglés de la interfaz; los nombres de marca se conservan.
+
+La portada usa superficies curvas y composiciones superpuestas. `RecordStack.tsx` contiene una pila de cinco discos que responde al desplazamiento y permite separarlos al pulsar. `ArtistMusic.tsx` permite seleccionar temas y abrirlos en el canal oficial. `/booking?artist=forty2` preselecciona al artista sin enviar el formulario.
