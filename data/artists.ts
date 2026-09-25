@@ -42,6 +42,8 @@ export const artists: Artist[] = [{
   slug: "ax-tokyo",
   name: "A.X TOKYO",
   monogram: "A.X",
+  image: "/artists/ax-tokyo.jpeg",
+  imagePosition: "55% 72%",
   releases: [
   {
     "title": "Por los Benja",
