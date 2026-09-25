@@ -45,3 +45,14 @@ La portada usa superficies curvas y composiciones superpuestas. `RecordStack.tsx
 
 ## Dominio y vista al compartir
 Configura `NEXT_PUBLIC_SITE_URL` con el dominio público definitivo antes de compilar. Se usa en canonical, Open Graph, sitemap y datos estructurados. `/opengraph-image` genera una imagen PNG con el logo sobre fondo negro. La previsualización de WhatsApp y otras redes requiere una URL pública accesible; localhost no puede ser leído por sus rastreadores. Cada plataforma controla su caché y presentación.
+
+## Galería, agenda, música y dossiers
+- `/gallery`: fotografías reales, filtros y ampliación. Las fotos proceden de `data/artists.ts`.
+- `/agenda`: solo fechas confirmadas de `data/events.ts`. Las fechas pasadas se ocultan; `startsAt` requiere zona horaria. `ticketUrl` debe ser el enlace oficial. No hay eventos de demostración publicados.
+- Las fichas cargan YouTube únicamente al pulsar reproducir. Si un video no permite inserción, está disponible el enlace a YouTube.
+- Los dossiers están en `public/dossiers`, en HTML autónomo imprimible y ZIP con las fotos originales. Para regenerarlos tras cambiar biografías/fotos: `node scripts/generate-dossiers.cjs` (necesita la utilidad `zip`, disponible en macOS/Linux). Los archivos generados se incluyen en el proyecto; Vercel no necesita ejecutar el generador.
+
+## Solicitudes de contratación
+Sin servicio de correo configurado, el formulario prepara la propuesta para correo o WhatsApp y exige que el visitante la envíe desde su aplicación. No muestra confirmaciones de recepción falsas.
+Para activar el envío directo opcional, configura `RESEND_API_KEY` y `BOOKING_FROM_EMAIL` en el servidor/Vercel. El remitente debe estar verificado en Resend. El destinatario siempre es el correo oficial de `lib/site.ts`. Nunca uses variables NEXT_PUBLIC para la clave. Requiere un nuevo despliegue si cambias variables en Vercel.
+La API valida origen, campos y extensión; incluye campo trampa, límite por instancia e idempotencia. El límite en memoria no es compartido entre instancias; para mayor tráfico debe sustituirse por almacenamiento compartido o reglas del proveedor. No se ha enviado ningún correo real durante las pruebas. No se garantiza recepción en bandeja de entrada solo por la aceptación del proveedor.

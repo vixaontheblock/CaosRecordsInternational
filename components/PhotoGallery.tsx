@@ -1,0 +1,13 @@
+"use client";
+import {useEffect,useRef,useState} from 'react';
+import {artists} from '@/data/artists';
+export default function PhotoGallery({artistSlug}:{artistSlug?:string}){
+ const [filter,setFilter]=useState(artistSlug||'all');const [selected,setSelected]=useState<string|null>(null);const dialog=useRef<HTMLDialogElement>(null);const strip=useRef<HTMLDivElement>(null);
+ const photos=artists.filter(a=>a.image&&(filter==='all'||a.slug===filter));const active=artists.find(a=>a.slug===selected);
+ useEffect(()=>{if(!selected)return;dialog.current?.showModal();const old=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=old;};},[selected]);
+ useEffect(()=>{const el=strip.current;if(!el)return;const reduced=matchMedia('(prefers-reduced-motion: reduce)');let frame=0;const update=()=>{frame=0;const r=el.getBoundingClientRect();if(!reduced.matches&&r.bottom>0&&r.top<innerHeight)el.style.setProperty('--film-shift',`${Math.max(-15,Math.min(15,(innerHeight/2-r.top-r.height/2)*.035))}px`);};const scroll=()=>{if(!frame)frame=requestAnimationFrame(update);};addEventListener('scroll',scroll,{passive:true});return()=>{removeEventListener('scroll',scroll);cancelAnimationFrame(frame);};},[]);
+ return <section className="photo-gallery"><div className="gallery-heading"><div><p className="eyebrow">ARCHIVO VISUAL</p><h2>{artistSlug?'En foco.':'Rostros de CAOS.'}</h2><p>Retratos de nuestros artistas.</p></div>{!artistSlug&&<div className="gallery-filters" aria-label="Filtrar fotografías">{[{slug:'all',name:'Todos'},...artists].map(a=><button key={a.slug} type="button" aria-pressed={filter===a.slug} onClick={()=>setFilter(a.slug)}>{a.name}</button>)}</div>}</div>
+ <div className="film-strip" ref={strip}>{photos.map(a=><figure key={a.slug}><button type="button" onClick={()=>setSelected(a.slug)} aria-label={`Ampliar fotografía de ${a.name}`}><img src={a.image} alt={`Retrato de ${a.name}`} loading="lazy" style={{objectPosition:a.imagePosition}}/><span>AMPLIAR</span></button><figcaption>{a.name}<span>RETRATO</span></figcaption></figure>)}</div>
+ <dialog ref={dialog} className="photo-dialog" onCancel={()=>setSelected(null)} onClose={()=>setSelected(null)} onClick={e=>{if(e.target===e.currentTarget){dialog.current?.close();setSelected(null);}}} aria-label={active?`Fotografía de ${active.name}`:'Fotografía'}>{active&&<><button autoFocus className="photo-close" type="button" onClick={()=>{dialog.current?.close();setSelected(null);}}>CERRAR</button><img src={active.image} alt={`Retrato completo de ${active.name}`}/><p>{active.name}</p></>}</dialog>
+ </section>;
+}

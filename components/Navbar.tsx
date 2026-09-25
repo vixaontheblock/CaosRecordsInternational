@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-const links = [["/artists","ARTISTAS"],["/records","SELLO"],["/about","NOSOTROS"],["/contact","CONTACTO"]];
+const links = [["/artists","ARTISTAS"],["/records","SELLO"],["/agenda","AGENDA"],["/about","NOSOTROS"],["/contact","CONTACTO"]];
 export default function Navbar(){
  const [open,setOpen]=useState(false); const path=usePathname(); const toggle=useRef<HTMLButtonElement>(null); const menu=useRef<HTMLElement>(null);
  useEffect(()=>setOpen(false),[path]);
