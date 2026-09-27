@@ -6,6 +6,10 @@ El sitio incluye un panel en `/admin`, páginas públicas en `/lanzamientos/nomb
 
 Importa `CAOS-plantilla-lanzamientos.xlsx` en Google Sheets y conviértela a formato de Google Sheets. Mantén la pestaña `Lanzamientos` y los encabezados de la fila 1 sin modificar. La pestaña Guía explica los campos; no interviene en la web. No publiques la hoja en Internet. No es necesario rellenar filas manualmente: el panel las creará.
 
+## Hoja elegida
+
+Identificador: `1nktxKaHHKtkmQUyLRzCcjbMTNuQdDRRno2WC1p7PWDU`. El identificador está configurado, pero la conexión todavía requiere la cuenta de servicio y los secretos del panel. No se ha podido comprobar el contenido de la hoja desde esta sesión.
+
 ## Conectar el servidor
 
 En tu proyecto de Google Cloud, habilita Google Sheets API, crea una cuenta de servicio y una clave JSON para esa cuenta. No hace falta dar roles generales de propietario/editor del proyecto a la cuenta de servicio. Comparte únicamente esta hoja con el `client_email` de la cuenta, con permiso de editor. No concedas acceso público.
