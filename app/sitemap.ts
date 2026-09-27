@@ -4,7 +4,7 @@ import { artists } from "@/data/artists";
 import {siteUrl as baseUrl} from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/artists", "/booking", "/records", "/about", "/contact", "/gallery", "/agenda"].map(
+  const staticRoutes = ["", "/artists", "/booking", "/records", "/about", "/contact", "/gallery", "/agenda", "/legal", "/privacy", "/terms", "/cookies"].map(
     (route) => ({
       url: `${baseUrl}${route}`,
     })

@@ -56,3 +56,17 @@ Configura `NEXT_PUBLIC_SITE_URL` con el dominio público definitivo antes de com
 Sin servicio de correo configurado, el formulario prepara la propuesta para correo o WhatsApp y exige que el visitante la envíe desde su aplicación. No muestra confirmaciones de recepción falsas.
 Para activar el envío directo opcional, configura `RESEND_API_KEY` y `BOOKING_FROM_EMAIL` en el servidor/Vercel. El remitente debe estar verificado en Resend. El destinatario siempre es el correo oficial de `lib/site.ts`. Nunca uses variables NEXT_PUBLIC para la clave. Requiere un nuevo despliegue si cambias variables en Vercel.
 La API valida origen, campos y extensión; incluye campo trampa, límite por instancia e idempotencia. El límite en memoria no es compartido entre instancias; para mayor tráfico debe sustituirse por almacenamiento compartido o reglas del proveedor. No se ha enviado ningún correo real durante las pruebas. No se garantiza recepción en bandeja de entrada solo por la aceptación del proveedor.
+
+## Actualización visual y privacidad — 26 septiembre 2026
+
+Portada editorial con logo GLB, mesa de mezcla con tres áreas interactivas y preguntas prácticas. Se mantienen los artistas exclusivamente en su apartado, las animaciones de objetos musicales y la firma existente.
+
+Documentos: /legal, /terms, /privacy y /cookies. Titular comunicado por el cliente: CAOS Records; representantes Rodolfo Martinez y Angel Monterrey. Antes de publicar, completar dirección y confirmar datos registrales del titular en app/legal/page.tsx; ajustar también la referencia en app/privacy/page.tsx. Estos textos requieren revisión jurídica y validación de las prácticas reales del negocio; no garantizan ausencia de reclamaciones. Revisar especialmente conservación efectiva de mensajes, proveedores y derechos de las fotos/materiales.
+
+La preferencia multimedia usa localStorage (caos-privacy-v1), versión y caducidad de 180 días. YouTube e imágenes remotas no se insertan hasta autorización; retirar permiso desmonta reproductores. No hay analítica ni píxeles publicitarios. Cambiar PRIVACY_VERSION en lib/privacy.ts si cambia el alcance. No añadir nuevos proveedores sin actualizar documentos y controles. El servidor de alojamiento puede generar registros técnicos propios.
+
+El formulario requiere autorización informada, también validada por el endpoint si se configura envío directo. Actualmente se continúa por correo o WhatsApp. No envía campañas. La versión de autorización acompaña la propuesta; el endpoint directo añade fecha de recepción. Respetar las solicitudes de derechos y mantener un procedimiento interno de eliminación y conservación.
+
+Fuentes de referencia: Ley 81 de 2019 y su reglamentación en https://www.antai.gob.pa/ ; privacidad mejorada de YouTube: https://support.google.com/youtube/answer/171780?hl=es .
+
+Validación: npm run build; node scripts/test-booking.cjs; node scripts/test-privacy.cjs. Los tests de correo usan proveedor simulado y no envían mensajes.

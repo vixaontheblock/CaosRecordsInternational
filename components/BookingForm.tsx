@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import {PRIVACY_VERSION} from "@/lib/privacy";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { artists } from "@/data/artists";
 import { officialEmail, phone } from "@/lib/site";
@@ -52,7 +54,7 @@ export default function BookingForm({directEnabled=false}:{directEnabled?:boolea
 
       <div><label className={labelClass} htmlFor="message">Mensaje / detalles de producción</label><textarea className={fieldClass} id="message" name="Mensaje" rows={5} maxLength={5000} /></div>
 
-      <div className="booking-actions"><p>{directEnabled?'Envía tu propuesta al equipo o continúa por correo o WhatsApp.':'Completa los datos y elige correo o WhatsApp. Abriremos la aplicación con tu propuesta preparada para que puedas revisarla y enviarla.'} La solicitud no confirma disponibilidad ni reserva.</p><div>{directEnabled&&<button type="submit" disabled={sending} className="button">{sending?'ENVIANDO…':'ENVIAR SOLICITUD'}</button>}<button type="button" disabled={sending} className="button" onClick={()=>openAlternative('email')}>CONTINUAR POR CORREO</button><button type="button" disabled={sending} className="button" onClick={()=>openAlternative('whatsapp')}>CONTINUAR POR WHATSAPP</button></div><p role="status" aria-live="polite">{status}</p></div>
+      <label className="form-privacy"><input type="checkbox" name="Autorización de privacidad" value={PRIVACY_VERSION} required/><span>Autorizo a CAOS Records a tratar los datos de esta solicitud para responder y gestionar mi propuesta, conforme a la <Link href="/privacy">política de privacidad</Link>. Puedo retirar mi autorización escribiendo al equipo. Consulta las <Link href="/terms">condiciones de las solicitudes</Link>.</span></label><div className="booking-actions"><p>{directEnabled?'Envía tu propuesta al equipo o continúa por correo o WhatsApp.':'Completa los datos y elige correo o WhatsApp. Abriremos la aplicación con tu propuesta preparada para que puedas revisarla y enviarla.'} La solicitud no confirma disponibilidad ni reserva.</p><div>{directEnabled&&<button type="submit" disabled={sending} className="button">{sending?'ENVIANDO…':'ENVIAR SOLICITUD'}</button>}<button type="button" disabled={sending} className="button" onClick={()=>openAlternative('email')}>CONTINUAR POR CORREO</button><button type="button" disabled={sending} className="button" onClick={()=>openAlternative('whatsapp')}>CONTINUAR POR WHATSAPP</button></div><p role="status" aria-live="polite">{status}</p></div>
     </form>
   );
 }
