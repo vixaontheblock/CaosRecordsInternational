@@ -44,7 +44,7 @@ export default function Logo3D(){
    const backingMaterial=new THREE.MeshStandardMaterial({color:0x080808,roughness:.7,metalness:.1});
    const backing=new THREE.Mesh(backingGeometry,backingMaterial);backing.position.z=-.045;
    const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});
-   renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setClearColor(0x080808,0);
+   renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(max-width:700px)').matches?1.25:1.75));renderer.setClearColor(0x080808,0);
    renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;
    renderer.domElement.setAttribute('aria-hidden','true');renderer.domElement.dataset.model='/CAOSRECORDS.glb';element.appendChild(renderer.domElement);
    const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(38,1,.1,50);camera.position.z=9.8;

@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import {artistBookingUrl} from '@/lib/booking-link';
+import {phone} from '@/lib/site';
+export default function ArtistBooking({name,slug}:{name:string;slug:string}){return <div className="artist-direct-booking"><a className="booking-whatsapp" href={artistBookingUrl(name)} target="_blank" rel="noopener noreferrer" aria-label={`Consultar la contratación de ${name} por WhatsApp`}>CONSULTAR POR WHATSAPP</a><div className="booking-secondary"><Link className="text-link" href={`/booking?artist=${slug}`}>COMPLETAR PROPUESTA</Link><a className="text-link" href={phone.call}>LLAMAR AL EQUIPO</a></div><p className="booking-direct-note">Se abrirá WhatsApp con {name} y los datos del evento preparados para completar. Revisa y envía el mensaje. La disponibilidad y la reserva se confirman con el equipo.</p><Link className="booking-privacy-link" href="/privacy">Cómo tratamos tus datos</Link></div>}

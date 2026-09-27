@@ -61,7 +61,7 @@ La API valida origen, campos y extensión; incluye campo trampa, límite por ins
 
 Portada editorial con logo GLB, mesa de mezcla con tres áreas interactivas y preguntas prácticas. Se mantienen los artistas exclusivamente en su apartado, las animaciones de objetos musicales y la firma existente.
 
-Documentos: /legal, /terms, /privacy y /cookies. Titular comunicado por el cliente: CAOS Records; representantes Rodolfo Martinez y Angel Monterrey. Antes de publicar, completar dirección y confirmar datos registrales del titular en app/legal/page.tsx; ajustar también la referencia en app/privacy/page.tsx. Estos textos requieren revisión jurídica y validación de las prácticas reales del negocio; no garantizan ausencia de reclamaciones. Revisar especialmente conservación efectiva de mensajes, proveedores y derechos de las fotos/materiales.
+Documentos: /legal, /terms, /privacy y /cookies. Titular comunicado por el cliente: CAOS Records; representantes Rodolfo Martinez y Angel Monterrey. Datos proporcionados por el titular e incorporados en aviso legal y privacidad: nombre registrado CAOS Records; RUC 8-1028-2462, DV 31; dirección comercial Ciudad del Saber; correo de contacto y privacidad info.caosrecords@gmail.com. No se ha realizado verificación registral independiente. Estos textos requieren revisión jurídica y validación de las prácticas reales del negocio; no garantizan ausencia de reclamaciones. Revisar especialmente conservación efectiva de mensajes, proveedores y derechos de las fotos/materiales.
 
 La preferencia multimedia usa localStorage (caos-privacy-v1), versión y caducidad de 180 días. YouTube e imágenes remotas no se insertan hasta autorización; retirar permiso desmonta reproductores. No hay analítica ni píxeles publicitarios. Cambiar PRIVACY_VERSION en lib/privacy.ts si cambia el alcance. No añadir nuevos proveedores sin actualizar documentos y controles. El servidor de alojamiento puede generar registros técnicos propios.
 
@@ -70,3 +70,9 @@ El formulario requiere autorización informada, también validada por el endpoin
 Fuentes de referencia: Ley 81 de 2019 y su reglamentación en https://www.antai.gob.pa/ ; privacidad mejorada de YouTube: https://support.google.com/youtube/answer/171780?hl=es .
 
 Validación: npm run build; node scripts/test-booking.cjs; node scripts/test-privacy.cjs. Los tests de correo usan proveedor simulado y no envían mensajes.
+
+## Contratación directa y ajustes móviles
+
+Cada artista incluye WhatsApp con su nombre y campos de evento, llamada y formulario. No se envía ningún mensaje automáticamente ni se confirma una reserva. Las fotografías de los perfiles y miniaturas de galería utilizan next/image con tamaños adaptativos; los originales siguen en el dossier. Se amplían objetivos táctiles y campos de formulario, se adaptan títulos estrechos y áreas seguras, se limita la resolución del render 3D en móvil y se cierra el menú al pasar al diseño de escritorio.
+
+Verificación: build de producción y scripts/test-artist-booking.cjs, test-booking.cjs, test-privacy.cjs. Revisión visual móvil pendiente: la herramienta de navegador no pudo verificar la política de seguridad del administrador. Revisar en iPhone y Android el menú, retratos, navegación, desplazamiento sobre el logo, galería, panel de privacidad y apertura de WhatsApp antes de dar por terminada esa revisión.
