@@ -80,3 +80,7 @@ Verificación: build de producción y scripts/test-artist-booking.cjs, test-book
 ## Sobre de prensa y lanzamientos
 
 Sobre animado en cada perfil, con controles de teclado y descarga de los dossiers existentes. `/admin` permite editar fichas con enlaces a plataformas, vista previa, borrador y publicación; Google Sheets es el almacenamiento. Guía de conexión y límites en `docs/GOOGLE-SHEETS.md`. La integración no está conectada hasta configurar las variables de `.env.example`. No se han inventado lanzamientos. Plantilla incluida en `docs/CAOS-plantilla-lanzamientos.xlsx`.
+
+## Corrección de compilación de fuentes en Vercel
+
+Se reemplazó next/font/google por next/font/local. Los archivos variables Latin de Big Shoulders Display e Inter y sus licencias están en app/fonts. Incluye esa carpeta al subir el proyecto; no requiere variables nuevas. Corrige el fallo del cargador Google de Next 14 al extraer la extensión de una URL de fuente. Mantén la configuración privada de Google Sheets en las variables de Vercel.

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import {siteUrl,siteDescription,pageMetadata} from "@/lib/seo";
 import {officialEmail,phone,instagram} from "@/lib/site";
-import { Big_Shoulders_Display, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PrivacyProvider from "@/components/PrivacyProvider";
 import Experience from "@/components/Experience";
 
-const display = Big_Shoulders_Display({ subsets: ["latin"], weight: ["600", "700", "800", "900"], variable: "--font-display", display: "swap" });
-const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body", display: "swap" });
+const display = localFont({ src: "./fonts/big-shoulders-display-latin.woff2", weight: "100 900", variable: "--font-display", display: "swap" });
+const body = localFont({ src: "./fonts/inter-latin.woff2", weight: "100 900", variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
  ...pageMetadata("CAOS Records",siteDescription,"/"),
