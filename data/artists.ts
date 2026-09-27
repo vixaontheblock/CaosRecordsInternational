@@ -102,4 +102,11 @@ export const artists: Artist[] = [{
     spotify: "https://open.spotify.com/artist/1gU1qfRsyAqrretJtddYUZ",
     instagram: "https://www.instagram.com/2005tokyo/",
   },
+}, {
+  slug: "zendo",
+  name: "Zendo",
+  monogram: "Z",
+  image: "/artists/zendo.jpeg",
+  imagePosition: "50% 22%",
+  links: { instagram: "https://www.instagram.com/zendodrp/" },
 }];
