@@ -76,3 +76,7 @@ Validación: npm run build; node scripts/test-booking.cjs; node scripts/test-pri
 Cada artista incluye WhatsApp con su nombre y campos de evento, llamada y formulario. No se envía ningún mensaje automáticamente ni se confirma una reserva. Las fotografías de los perfiles y miniaturas de galería utilizan next/image con tamaños adaptativos; los originales siguen en el dossier. Se amplían objetivos táctiles y campos de formulario, se adaptan títulos estrechos y áreas seguras, se limita la resolución del render 3D en móvil y se cierra el menú al pasar al diseño de escritorio.
 
 Verificación: build de producción y scripts/test-artist-booking.cjs, test-booking.cjs, test-privacy.cjs. Revisión visual móvil pendiente: la herramienta de navegador no pudo verificar la política de seguridad del administrador. Revisar en iPhone y Android el menú, retratos, navegación, desplazamiento sobre el logo, galería, panel de privacidad y apertura de WhatsApp antes de dar por terminada esa revisión.
+
+## Sobre de prensa y lanzamientos
+
+Sobre animado en cada perfil, con controles de teclado y descarga de los dossiers existentes. `/admin` permite editar fichas con enlaces a plataformas, vista previa, borrador y publicación; Google Sheets es el almacenamiento. Guía de conexión y límites en `docs/GOOGLE-SHEETS.md`. La integración no está conectada hasta configurar las variables de `.env.example`. No se han inventado lanzamientos. Plantilla incluida en `docs/CAOS-plantilla-lanzamientos.xlsx`.

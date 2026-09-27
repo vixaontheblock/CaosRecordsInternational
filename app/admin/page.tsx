@@ -1,0 +1,3 @@
+import AdminReleases from '@/components/AdminReleases';
+export const metadata={title:'Administración',robots:{index:false,follow:false}};
+export default function Page(){return <AdminReleases/>}

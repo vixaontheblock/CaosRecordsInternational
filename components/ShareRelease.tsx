@@ -1,0 +1,3 @@
+"use client";
+import {useState} from 'react';
+export default function ShareRelease({title}:{title:string}){const [status,setStatus]=useState('');async function share(){try{if(navigator.share)await navigator.share({title,url:location.href});else{await navigator.clipboard.writeText(location.href);setStatus('Enlace copiado.');}}catch(e){if(!(e instanceof DOMException&&e.name==='AbortError'))setStatus('Puedes copiar el enlace desde la barra del navegador.');}}return <div className="release-share"><button className="text-link" onClick={share}>COMPARTIR LANZAMIENTO</button><p role="status">{status}</p></div>}

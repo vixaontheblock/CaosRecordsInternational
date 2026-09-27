@@ -1,0 +1,7 @@
+import {NextResponse} from 'next/server';
+import {isAdmin,sameOrigin} from '@/lib/admin-auth';
+import {listReleases,saveRelease} from '@/lib/sheets';
+import {validateRelease} from '@/lib/releases';
+export const runtime='nodejs';export const dynamic='force-dynamic';
+export async function GET(){if(!isAdmin())return NextResponse.json({error:'Inicia sesión.'},{status:401});try{return NextResponse.json({releases:await listReleases()},{headers:{'Cache-Control':'no-store'}});}catch{return NextResponse.json({error:'No se pudo leer la hoja. Revisa su conexión y las columnas.'},{status:503});}}
+export async function POST(request:Request){if(!sameOrigin(request))return NextResponse.json({error:'Solicitud no permitida.'},{status:403});if(!isAdmin())return NextResponse.json({error:'La sesión terminó. Vuelve a iniciar sesión.'},{status:401});let input;try{const raw=await request.text();if(raw.length>16000)throw Error();input=JSON.parse(raw);if(typeof input?.published!=='boolean'||typeof input?.id!=='string'||typeof input?.title!=='string'||typeof input?.description!=='string'||!Array.isArray(input?.links))throw Error();validateRelease(input);}catch{return NextResponse.json({error:'Revisa los datos y los enlaces del lanzamiento.'},{status:400});}try{return NextResponse.json({release:await saveRelease(input)});}catch(e){return NextResponse.json({error:e instanceof Error?e.message:'No se pudo guardar.'},{status:409});}}
