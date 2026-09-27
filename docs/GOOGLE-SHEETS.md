@@ -44,3 +44,9 @@ No añadas filas incompletas a mano: los registros inválidos se omiten. Conserv
 La conexión real queda pendiente hasta que exista la hoja y se configuren las variables. Las pruebas locales usan Google simulado y no escriben en tu cuenta.
 
 Referencias: https://developers.google.com/workspace/sheets/api/samples/writing y https://developers.google.com/identity/protocols/oauth2/service-account
+
+## QR y franja del artista
+
+Cada ficha publicada tiene un QR en su página pública y en el editor del panel. Descargas: PNG de 1024 × 1024 y SVG escalable. El QR apunta a la URL canónica configurada en NEXT_PUBLIC_SITE_URL, no al dominio de una vista previa. El código se genera en el servidor sin servicios externos ni seguimiento de escaneos. Mantén el margen blanco para que se lea correctamente. Si cambia el dominio oficial, descarga nuevos códigos o conserva una redirección desde el dominio anterior.
+
+Los perfiles muestran automáticamente la ficha publicada más reciente de ese artista, ordenada por created_at. Editar una ficha no la convierte en un estreno nuevo. No se utiliza una fecha de lanzamiento musical porque esa columna aún no existe. Si retiras la ficha, desaparece de la franja y el QR deja de descargarse; los QR impresos seguirán apuntando a la URL, que mostrará la página no encontrada. Ante un fallo de Google Sheets, el perfil y la contratación siguen disponibles y la franja se omite.

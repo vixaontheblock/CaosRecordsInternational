@@ -84,3 +84,9 @@ Sobre animado en cada perfil, con controles de teclado y descarga de los dossier
 ## Corrección de compilación de fuentes en Vercel
 
 Se reemplazó next/font/google por next/font/local. Los archivos variables Latin de Big Shoulders Display e Inter y sus licencias están en app/fonts. Incluye esa carpeta al subir el proyecto; no requiere variables nuevas. Corrige el fallo del cargador Google de Next 14 al extraer la extensión de una URL de fuente. Mantén la configuración privada de Google Sheets en las variables de Vercel.
+
+## QR, último lanzamiento y 404 interactiva
+
+QR PNG/SVG en cada lanzamiento publicado y en el panel. La franja de cada perfil muestra su ficha publicada más reciente por created_at, sin mezclar artistas ni mostrar borradores. Se consulta en cada petición del perfil. Página 404 propia con vinilo dividido en tres piezas: botón para recomponerlo/separarlo, accesible por teclado y sin animación con movimiento reducido. No reproduce audio.
+
+Pruebas: `node scripts/test-release-features.cjs` decodifica los PNG generados para verificar su destino, comprueba descargas y exclusión de borradores y retiradas. No añade lanzamientos reales a Google Sheets.
