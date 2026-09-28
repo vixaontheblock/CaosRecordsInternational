@@ -1,6 +1,10 @@
 export type Artist = {
   slug: string;
   name: string;
+  disciplines?: ("singer" | "dj")[];
+  setDuration?: string;
+  technicalNotes?: string;
+  sessions?: { title: string; credit: string; videoId: string; duration: string; artwork?: string }[];
   location?: string;
   genre?: string;
   bio?: string;
@@ -22,10 +26,11 @@ export type Artist = {
 export const artists: Artist[] = [{
   slug: "forty2",
   name: "Forty2",
+  disciplines: ["singer"],
   monogram: "42",
   image: "/artists/forty2.png",
   imagePosition: "62% 28%",
-  genre: "Trap · Reguetón · Funk",
+  genre: "Trap / Reguetón / Funk",
   bio: "Forty2, también conocido como Isforty2, presenta su proyecto con la expresión «de Cali a Panamá». Su canal reúne canciones con referencias al trap, al reguetón y al funk, además de colaboraciones con AGM, FLASH_HYRO y DQ. Entre sus publicaciones están Sin respeto, ¿Paso por ti?, Una mala y Gritos. Forma parte de CAOS Records.",
   links: { youtube: "https://www.youtube.com/@ISFORTY2", instagram: "https://www.instagram.com/isforty2/" },
   releases: [
@@ -34,13 +39,14 @@ export const artists: Artist[] = [{
     { title: "Una mala", credit: "AGM, FLASH_HYRO y Forty2", videoId: "Zt7HIY6Pb2k", duration: "2:35", artwork: "https://i.ytimg.com/vi/Zt7HIY6Pb2k/hq720.jpg?sqp=-oaymwFBCNAFEJQDSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AG-B4AC0AWKAgwIABABGH8gEygWMA8=&rs=AOn4CLC70JPaSR2tFX2T9Hvts4vrUj0nJQ" },
     { title: "Gritos", credit: "Isforty2", videoId: "Ydeh-45Nd20", duration: "3:17" },
     { title: "Deja el drama", credit: "Isforty2 y DQ", videoId: "ZXwZ8q3t9uQ", duration: "2:26" },
-    { title: "No contesta", credit: "Isforty2 · Producción de Forty2", videoId: "Qqc4yRpOZRg", duration: "3:08" },
+    { title: "No contesta", credit: "Isforty2 / Producción de Forty2", videoId: "Qqc4yRpOZRg", duration: "3:08" },
     { title: "Te conviene", credit: "Isforty2", videoId: "ioq975suprA", duration: "3:02" },
-    { title: "El cllo", credit: "Isforty2 · Producción de FRANCO", videoId: "8yT0gsr9Nqs", duration: "2:19" },
+    { title: "El cllo", credit: "Isforty2 / Producción de FRANCO", videoId: "8yT0gsr9Nqs", duration: "2:19" },
   ],
 }, {
   slug: "ax-tokyo",
   name: "A.X TOKYO",
+  disciplines: ["singer"],
   monogram: "A.X",
   image: "/artists/ax-tokyo.jpeg",
   imagePosition: "55% 72%",
@@ -95,7 +101,7 @@ export const artists: Artist[] = [{
     "credit": "A.X TOKYO"
   }
 ],
-  genre: "Voz · Producción musical",
+  genre: "Voz / Producción musical",
   bio: "A.X TOKYO combina la interpretación y la producción musical, dos facetas que destaca en la presentación de su canal oficial. Su repertorio incluye Por los Benja, Emociones con colores, Trapstar, Otro feeling y Pesto. También reúne colaboraciones con UZIFER99, Sinclair y Tye en canciones como Por los Benja, Deskite y 7:18. Forma parte de CAOS Records y comparte su música en YouTube y Spotify, con novedades en Instagram.",
   links: {
     youtube: "https://www.youtube.com/@a.xtokyo",
@@ -105,6 +111,7 @@ export const artists: Artist[] = [{
 }, {
   slug: "zendo",
   name: "Zendo",
+  disciplines: ["singer"],
   monogram: "Z",
   image: "/artists/zendo.jpeg",
   imagePosition: "50% 22%",

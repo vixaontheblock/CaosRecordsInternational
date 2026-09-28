@@ -15,8 +15,9 @@ export default function BookingForm({directEnabled=false}:{directEnabled?:boolea
   const prepared=()=>{const form=formRef.current;if(!form||!form.reportValidity())return null;const data=Object.fromEntries(Array.from(new FormData(form).entries()).filter(([key])=>key!=='website').map(([key,value])=>[key,String(value).trim()]));return data;};
   function openAlternative(channel:'email'|'whatsapp') {const data=prepared();if(!data)return;const body=Object.entries(data).filter(([,v])=>v).map(([k,v])=>`${k}: ${v}`).join('\n');const subject=`CAOS — Contratación — ${data.Artista}`;const url=channel==='email'?`mailto:${officialEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`:`${phone.whatsapp}?text=${encodeURIComponent(subject+'\n\n'+body)}`;window.location.href=url;setStatus(channel==='email'?'Solicitud preparada. Envíala desde tu aplicación de correo.':'Solicitud preparada. Revisa el mensaje y envíalo en WhatsApp.');}
 
+  const [format,setFormat]=useState("Por definir");
   const [selectedArtist,setSelectedArtist]=useState("General / artista por confirmar");
-  useEffect(()=>{const slug=new URLSearchParams(window.location.search).get("artist");const artist=artists.find(a=>a.slug===slug);if(artist)setSelectedArtist(artist.name);},[]);
+  useEffect(()=>{const slug=new URLSearchParams(window.location.search).get("artist");const artist=artists.find(a=>a.slug===slug);if(artist){setSelectedArtist(artist.name);setFormat(artist.disciplines?.includes("dj")?"DJ set":"Actuación vocal");}else{const requested=new URLSearchParams(window.location.search).get("format");if(requested==="dj")setFormat("DJ set");if(requested==="live")setFormat("Actuación vocal");}},[]);
   async function handleSubmit(e:FormEvent<HTMLFormElement>){
     e.preventDefault();if(sending)return;if(!directEnabled){openAlternative('email');return;}
     const fields=prepared();if(!fields)return;const payload=JSON.stringify(fields);if(attempt.current?.payload!==payload)attempt.current={payload,id:crypto.randomUUID()};setSending(true);setStatus('');
@@ -35,10 +36,11 @@ export default function BookingForm({directEnabled=false}:{directEnabled?:boolea
 
       <fieldset className="grid sm:grid-cols-2 gap-x-8 gap-y-8">
         <legend className="sr-only">Detalles del evento</legend>
+        <div className="format-field"><label className={labelClass} htmlFor="performance-format">Formato de actuación</label><select id="performance-format" name="Formato de actuación" className={fieldClass} value={format} onChange={e=>{setFormat(e.target.value);setSelectedArtist("General / artista por confirmar");}}><option>Por definir</option><option>Actuación vocal</option><option>DJ set</option><option>Formato híbrido</option></select>{format==="DJ set"&&<p className="format-note">Aún no hay DJs anunciados. Puedes enviar una consulta general sobre tu evento; no implica disponibilidad.</p>}</div>
         <div>
           <label className={labelClass} htmlFor="artist">Artista</label>
           <select className={fieldClass} id="artist" name="Artista" value={selectedArtist} onChange={e=>setSelectedArtist(e.target.value)}>
-            {artists.map((a) => <option key={a.slug} value={a.name}>{a.name}</option>)}
+            {artists.filter(a=>format!=="DJ set"||a.disciplines?.includes("dj")).map((a) => <option key={a.slug} value={a.name}>{a.name}</option>)}
             <option value="General / artista por confirmar">General / artista por confirmar</option>
           </select>
         </div>
@@ -49,6 +51,8 @@ export default function BookingForm({directEnabled=false}:{directEnabled?:boolea
         <div><label className={labelClass} htmlFor="city">Ciudad</label><input className={fieldClass} id="city" name="Ciudad" type="text" maxLength={300} required /></div>
         <div><label className={labelClass} htmlFor="venue">Recinto</label><input className={fieldClass} id="venue" name="Recinto" type="text" maxLength={300} /></div>
         <div><label className={labelClass} htmlFor="attendance">Asistencia estimada</label><input className={fieldClass} id="attendance" name="Asistencia estimada" type="text" maxLength={300} /></div>
+        <div><label className={labelClass} htmlFor="duration">Duración prevista</label><input id="duration" name="Duración prevista" className={fieldClass} maxLength={300} placeholder="Duración aproximada o por definir"/></div>
+        <div><label className={labelClass} htmlFor="equipment">{format==="DJ set"?"Equipo de cabina disponible":"Sonido y equipo disponible"}</label><input id="equipment" name="Equipo disponible" className={fieldClass} maxLength={300} placeholder={format==="DJ set"?"Reproductores, mezcladora, monitores…":"Micrófonos, monitores, sonido…"}/></div>
         <div><label className={labelClass} htmlFor="budget">Presupuesto estimado</label><input className={fieldClass} id="budget" name="Presupuesto estimado" type="text" maxLength={300} /></div>
       </fieldset>
 

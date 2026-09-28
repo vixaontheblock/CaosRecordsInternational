@@ -1,0 +1,6 @@
+"use client";
+import {useState} from 'react';
+import Link from 'next/link';
+import {artists} from '@/data/artists';
+import ArtistFeature from './ArtistFeature';
+export default function ArtistRoster(){const [filter,setFilter]=useState('all');const roster=artists.filter(a=>filter==='all'||a.disciplines?.includes(filter as 'singer'|'dj'));return <><div className="roster-tools" role="group" aria-label="Tipo de artista">{[['all','Todos'],['singer','Cantantes'],['dj','DJs']].map(([value,label])=><button key={value} onClick={()=>setFilter(value)} aria-pressed={filter===value}>{label}</button>)}<span aria-live="polite">{roster.length?`${roster.length} proyectos`:'Sin perfiles anunciados'}</span></div>{roster.length?roster.map(a=><ArtistFeature key={a.slug} artist={a}/>):<section className="roster-empty"><div className="empty-record" aria-hidden="true"><img src="/logo-white.png" alt=""/></div><div><p className="eyebrow">LA CABINA</p><h2>El próximo nombre<br/>todavía está por sonar.</h2><p>Aún no hemos anunciado DJs en CAOS. Estamos abriendo este espacio para proyectos de selección, mezcla y producción.</p><Link className="text-link" href="/contact?topic=dj">PRESENTAR MI PROYECTO COMO DJ</Link></div></section>}</>}

@@ -4,7 +4,7 @@ import {officialEmail} from '@/lib/site';
 import {artists} from '@/data/artists';
 import {siteUrl} from '@/lib/seo';
 export const runtime='nodejs';
-const allowed=['Autorización de privacidad','Nombre completo','Empresa','Correo electrónico','Teléfono / WhatsApp','Artista','Nombre del evento','Tipo de evento','Fecha del evento','País','Ciudad','Recinto','Asistencia estimada','Presupuesto estimado','Mensaje'];
+const allowed=['Formato de actuación','Duración prevista','Equipo disponible','Autorización de privacidad','Nombre completo','Empresa','Correo electrónico','Teléfono / WhatsApp','Artista','Nombre del evento','Tipo de evento','Fecha del evento','País','Ciudad','Recinto','Asistencia estimada','Presupuesto estimado','Mensaje'];
 // Protección por instancia; un despliegue con mucho tráfico debe usar un límite compartido.
 const attempts=new Map<string,{count:number;until:number}>();
 export async function POST(request:Request){
@@ -21,6 +21,8 @@ export async function POST(request:Request){
  for(const key of ['Nombre completo','Correo electrónico','País','Ciudad'])if(!data[key])return NextResponse.json({error:'Completa nombre, correo, país y ciudad.'},{status:400});
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data['Correo electrónico'])||/[\r\n]/.test(data['Correo electrónico']))return NextResponse.json({error:'Revisa el correo electrónico.'},{status:400});
  if(![...artists.map(a=>a.name),'General / artista por confirmar'].includes(data.Artista))return NextResponse.json({error:'Selecciona un artista válido.'},{status:400});
+ if(data['Formato de actuación']&&!['Por definir','Actuación vocal','DJ set','Formato híbrido'].includes(data['Formato de actuación']))return NextResponse.json({error:'Selecciona un formato válido.'},{status:400});
+ if(data['Formato de actuación']==='DJ set'&&data.Artista!=='General / artista por confirmar'&&!artists.find(a=>a.name===data.Artista)?.disciplines?.includes('dj'))return NextResponse.json({error:'El artista seleccionado no tiene formato DJ confirmado.'},{status:400});
  if(typeof body.id!=='string'||!/^[a-f0-9-]{36}$/.test(body.id))return NextResponse.json({error:'Identificador no válido.'},{status:400});
  if(!process.env.RESEND_API_KEY||!process.env.BOOKING_FROM_EMAIL)return NextResponse.json({error:'El envío directo no está disponible. Puedes usar correo o WhatsApp.'},{status:503});
  const now=Date.now();for(const [key,value]of attempts)if(value.until<now)attempts.delete(key);

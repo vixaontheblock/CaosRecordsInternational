@@ -90,3 +90,13 @@ Se reemplazó next/font/google por next/font/local. Los archivos variables Latin
 QR PNG/SVG en cada lanzamiento publicado y en el panel. La franja de cada perfil muestra su ficha publicada más reciente por created_at, sin mezclar artistas ni mostrar borradores. Se consulta en cada petición del perfil. Página 404 propia con vinilo dividido en tres piezas: botón para recomponerlo/separarlo, accesible por teclado y sin animación con movimiento reducido. No reproduce audio.
 
 Pruebas: `node scripts/test-release-features.cjs` decodifica los PNG generados para verificar su destino, comprueba descargas y exclusión de borradores y retiradas. No añade lanzamientos reales a Google Sheets.
+
+## Cantantes y DJs — septiembre 2026
+
+Artistas tiene filtros Todos, Cantantes y DJs. Los tres perfiles actuales conservan su información y figuran como cantantes; no se han creado DJs ficticios. El filtro DJs muestra una invitación para presentar proyectos. La portada incorpora un pase y un disco manipulable, con modos Voz y Cabina. Contacto adapta el mensaje para eventos, música, DJs o prensa; nada se envía automáticamente.
+
+Contratación incluye formato, duración prevista y equipo disponible. DJ set filtra artistas sin disciplina DJ y permite una consulta general cuando no hay perfiles disponibles; el servidor aplica la misma restricción. Los campos nuevos viajan en correo, WhatsApp y envío directo si está configurado.
+
+Para incorporar un DJ confirmado, añadir su ficha real en data/artists.ts con disciplines: ['dj'] (o ['singer','dj'] si se confirman ambas facetas), foto, enlaces y biografía. Los campos opcionales sessions, setDuration y technicalNotes permiten documentar sesiones, duración y necesidades técnicas. No rellenarlos sin información del artista. El panel de lanzamientos usa la lista de artistas existente; no hay todavía un editor de perfiles de artistas.
+
+Pulido editorial de historia, sello, galería, agenda, lanzamientos y administración. Se mantienen las fuentes locales, el QR, el sobre de prensa y la 404. Revisión visual en navegador/móvil pendiente por el bloqueo del control de seguridad de la herramienta; compilación y pruebas funcionales verificadas.
